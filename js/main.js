@@ -1,12 +1,10 @@
 const appId = '463027451d184b8251cf33d0558a16cc';
 const units = 'imperial';
-let searchMethod = 'zip';
+let searchMethod;
 
-const init = resultFromServer => {
-  console.log(resultFromServer);
-};
-
+// FETCH API FUNCTION
 const searchWeather = searchTerm => {
+  getSearchMethod(searchTerm);
   fetch(
     `http://api.openweathermap.org/data/2.5/weather?${searchMethod}=${searchTerm}&APPID=${appId}&units=${units}`
   )
@@ -20,3 +18,54 @@ const searchWeather = searchTerm => {
       console.log(err);
     });
 };
+
+// DETERMINE SEARCH METHOD FUNCTION
+const getSearchMethod = searchTerm => {
+  if (
+    searchTerm.length === 5 &&
+    Number.parseInt(searchTerm) + '' === searchTerm
+  ) {
+    searchMethod = 'zip';
+  } else {
+    searchMethod = 'q';
+  }
+};
+
+// CONSOLE LOG RESULT FROM API
+const init = resultFromServer => {
+  console.log(resultFromServer);
+  switch (resultFromServer.weather[0].main) {
+    case 'Clear':
+      document.body.style.backgroundImage = 'url("pics/clear.jpg")';
+      break;
+
+    case 'Clouds':
+      document.body.style.backgroundImage = 'url("pics/cloudy.jpg")';
+      break;
+
+    case 'Rain':
+    case 'Drizzle':
+    case 'Mist':
+      document.body.style.backgroundImage = 'url("pics/rain.jpg")';
+      break;
+
+    case 'Thunderstorm':
+      document.body.style.backgroundImage = 'url("pics/storm.jpg")';
+      break;
+
+    case 'Snow':
+      document.body.style.backgroundImage = 'url("pics/snow.jpg")';
+      break;
+
+    default:
+      break;
+  }
+};
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+  let searchTerm = document.getElementById('searchInput').value;
+
+  if (searchTerm) {
+    return searchWeather(searchTerm);
+  }
+});
