@@ -60,6 +60,36 @@ const init = resultFromServer => {
     default:
       break;
   }
+
+  let resultDescription = resultFromServer.weather[0].description;
+
+  let weatherDescriptionHeader = document.getElementById(
+    'weatherDescriptionHeader'
+  );
+  let temperatureElement = document.getElementById('temperature');
+  let humidityElement = document.getElementById('humidity');
+  let windSpeedElement = document.getElementById('windSpeed');
+  let cityHeader = document.getElementById('cityHeader');
+  let weatherIcon = document.getElementById('documentIconImg');
+
+  weatherIcon.src =
+    'http://openweathermap.org/img/wn/' +
+    resultFromServer.weather[0].icon +
+    '.png';
+
+  weatherDescriptionHeader.innerText =
+    resultDescription.charAt(0).toUpperCase() + resultDescription.slice(1);
+
+  temperatureElement.innerHTML =
+    Math.floor(resultFromServer.main.temp) + '&#176' + 'F';
+
+  windSpeedElement.innerHTML =
+    'Winds at ' + Math.floor(resultFromServer.wind.speed) + ' m/s';
+
+  cityHeader.innerHTML = resultFromServer.name;
+
+  humidityElement.innerHTML =
+    'Humidity at ' + resultFromServer.main.humidity + '%';
 };
 
 document.getElementById('searchBtn').addEventListener('click', () => {

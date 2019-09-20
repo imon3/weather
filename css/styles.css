@@ -1,0 +1,32 @@
+body {
+  background-image: url('/pics/default.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  text-shadow: 2px 2px 1px black;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+#weatherContainer {
+  background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 1px 5px black;
+  padding: 50px;
+  border-radius: 10px;
+  position: absolute;
+  /* visibility: hidden; */
+}
+
+#weatherContainer h1 {
+  margin: 5px;
+  font-size: 3rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#searchContainer {
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
